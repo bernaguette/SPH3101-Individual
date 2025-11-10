@@ -299,15 +299,45 @@ underweight_coef$model <- "Underweight"
 forest_data <- rbind(stunting_coef, underweight_coef)
 forest_data <- forest_data[forest_data$term != "(Intercept)", ]  # Delete the intercept
 
-p_forest <- ggplot(forest_data, aes(x = estimate, y = term, color = model)) +
+lab_map <- c(
+  "wealth_c"             = "Wealth (urban/rural index, centered)",
+  "children_c"           = "Total children ever born (centered)",
+  "average_parent_edu_c" = "Average parental education (years, centered)"
+)
+
+forest_data_labeled <- forest_data %>%
+  mutate(
+    term_label = case_match(
+      term,
+      "wealth_c"             ~ lab_map["wealth_c"],
+      "children_c"           ~ lab_map["children_c"],
+      "average_parent_edu_c" ~ lab_map["average_parent_edu_c"],
+      .default = term
+    ),
+    term_label = factor(
+      term_label,
+      levels = c(lab_map["wealth_c"], lab_map["average_parent_edu_c"], lab_map["children_c"])
+    )
+  )
+
+p_forest <- ggplot(forest_data_labeled, aes(x = estimate, y = term_label, color = model)) +
   geom_point(position = position_dodge(width = 0.5), size = 3) +
-  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high), 
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high),
                  position = position_dodge(width = 0.5), height = 0.2) +
   geom_vline(xintercept = 1, linetype = "dashed", color = "gray50") +
-  scale_x_log10() +
-  labs(title = "Forest Plot: Odds Ratios for Final Models",
-       x = "Odds Ratio (95% CI)", y = "Variables") +
+  scale_x_log10(
+    breaks = c(0.5, 0.75, 1, 1.5, 2, 3, 4),
+    labels = label_number(accuracy = 0.01)
+  ) +
+  labs(
+    title = "Forest Plot: Odds Ratios for Final Models",
+    x = "Odds ratio (log scale, 95% CI)",
+    y = "Predictors",
+    color = NULL
+  ) +
+  theme_minimal(base_size = 12) +
   theme(legend.position = "top")
+
 ggsave("plots/model_building/01_forest_plot_final_models.png", p_forest, width = 10, height = 6, dpi = 300)
 
 # ROC Curves
