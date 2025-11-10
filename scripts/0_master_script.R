@@ -6,6 +6,8 @@ library(anthro) # For calculation of Z-Scores
 library(car) # For VIF Analysis
 library(broom) # For tidy function
 library(pROC) # For ROC Curves
+library(gtsummary) # For individual assignment tables
+library(dplyr) # For individual assignment tables
 
 # Run the data cleaning and processing
 source('scripts/1_data_cleaning_processing.R')

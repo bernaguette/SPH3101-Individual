@@ -290,7 +290,7 @@ print(underweight_aic)
 
 # ==================== Plots ====================
 if (!dir.exists("plots/model_building")) dir.create("plots/model_building", recursive = TRUE)
-# Forrest Plot
+# Forest Plot
 stunting_coef <- tidy(stunting_final, conf.int = TRUE, exponentiate = TRUE)
 underweight_coef <- tidy(underweight_final, conf.int = TRUE, exponentiate = TRUE)
 
