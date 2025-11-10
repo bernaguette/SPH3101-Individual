@@ -7,6 +7,7 @@ cat("\nTotal sample size:", nrow(bdhs_final), "\n")
 
 # Malnutrition prevalence
 cat("\n--- Malnutrition Prevalence ---\n")
+cat("Any Malnutrition:", mean(bdhs_final$any_malnutrition, na.rm=T)*100, "%\n")
 cat("Stunting:", mean(bdhs_final$stunted, na.rm=T)*100, "%\n")
 cat("Wasting:", mean(bdhs_final$wasted, na.rm=T)*100, "%\n")
 cat("Underweight:", mean(bdhs_final$underweight, na.rm=T)*100, "%\n")

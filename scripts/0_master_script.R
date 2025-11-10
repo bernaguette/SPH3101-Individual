@@ -20,3 +20,6 @@ source('scripts/3_statistical_models.R')
 source('scripts/4_interaction_analysis.R')
 
 # Visualization codes already in separate scripts
+
+#Run the table and visualisation codes for the individual assignment
+source('scripts/5_individual_assignment.R')
