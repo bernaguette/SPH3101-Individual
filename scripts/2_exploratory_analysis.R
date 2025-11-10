@@ -71,16 +71,6 @@ df_malnutrition_head_age <- data.frame(
   head_age = c(malnutrition_head_age, no_malnutrition_head_age)
 )
 
-ggplot(df_malnutrition_head_age, aes(group, head_age, fill = group)) +
-  geom_violin(trim = TRUE, width = 0.9, alpha = 0.35, color = NA) +
-  geom_boxplot(width = 0.15, outlier.shape = NA, alpha = 0.7) +
-  scale_x_discrete(limits = c("No Malnutrition", "Malnutrition")) + 
-  stat_summary(fun = mean, geom = "point", size = 2, shape = 21, fill = "white") +
-  stat_summary(fun.data = mean_cl_normal, geom = "errorbar", width = 0.06) +
-  scale_fill_manual(values = c("No Malnutrition" = "chartreuse4", "Malnutrition" = "brown")) +
-  labs(x = NULL, y = "Head age (months)", fill = NULL) +
-  theme_minimal() + theme(legend.position = "none")
-
 # Stunting
 stunted_head_age <- bdhs_final$head_age[bdhs_final$stunted == 1]
 normal_head_age <- bdhs_final$head_age[bdhs_final$any_malnutrition == 0]
